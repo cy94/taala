@@ -5,6 +5,13 @@ import threading
 import time
 import pygame
 
+def sound(fname):
+	pygame.mixer.music.load(fname)
+	pygame.mixer.music.play()
+
+	while pygame.mixer.music.get_busy(): 
+		pygame.time.Clock().tick(1)
+
 class BeatThread(threading.Thread):
 	def __init__(self, tempo, playframe):
 		threading.Thread.__init__(self)
@@ -171,7 +178,15 @@ class PlayFrame(Frame):
 			
 		if self.currentline == len( self.currentbeats ):
 			self.currentline = 0	
+		
+		if self.currentbeat == 0:
+			arg = ("high.wav",)
+		else:
+			arg = ("low.wav",)
 			
+		t = threading.Thread(target=sound, args=arg)
+		t.start()
+		
 		self.currentbeats[self.currentline][self.currentbeat].configure(bg = "green")	
 			
 class Taala:
