@@ -1,4 +1,6 @@
-#taala
+# taala meter
+# chandan yeshwanth
+# 2014
 
 from Tkinter import *
 import threading
